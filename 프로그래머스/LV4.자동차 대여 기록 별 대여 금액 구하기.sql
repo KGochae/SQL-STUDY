@@ -1,5 +1,6 @@
-#  HISTORY 기준으로 사용 기간과 요금을 한테이블로 결합
 
+#  자동차 대여기록(HISTORY) 기준으로 사용 기간(daydiff)과 요금(daily_fee)을 한테이블로 결합 (PK:car_id)
+        
 with truck AS (
         SELECT a.history_id AS HISTORY_ID
             , a.car_id
@@ -13,7 +14,8 @@ with truck AS (
 SELECT *
 FROM truck
 
-# 트럭인경우 / 할인율 적용 7일 이상 5% / 30일 이상 8% / 90일 이상 15% 
+> 트럭에 해당하는 차만 뽑아서 문제에서 제시된 할인율을 적용
+> 트럭인경우 / 할인율 적용 7일 이상 5% / 30일 이상 8% / 90일 이상 15% 
 
 SELECT HISTORY_ID
     , ROUND(CASE WHEN daydiff < 7 THEN daily_fee*daydiff
