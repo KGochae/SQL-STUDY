@@ -30,3 +30,11 @@ JOIN AVG_CTE C ON G.genre_id = C.genre_id
 WHERE year >= 2015 AND (critic_score is null or user_score is null)
 
 
+
+# 해맸던 이유
+* ROUND() 함수의 경우 ROUND(COL, 소숫점 ) 형태로 작동이 되는데, 여기서 소숫점을 입력하지 않으면 자동적으로 올림이 될것이라고 생각했다.
+* 하지만 CELLING() 을 이용해야했음. 사소한 부분에서 계속 오답이 나왔었다 -.- ...
+
+* ROUND() 반올림
+* CELLING() 올림
+* FLOOR() 버림
