@@ -24,8 +24,8 @@ FROM (select *
       from cte) A
 )
 
-# A 서브쿼리 - 이전 로그와 600초 이상인 경우, 그리고 첫번째 로그는 이전 로그가 없기 때문에 NULL 값이됨 -> 이에 해당하는 경우 세션의 시작이라고 볼 수 있음
-# 이후 id ( 이벤트가 발생한 순서 ) 정렬하고 user_pseudo_id 별로 session 을 누적합
+# A 서브쿼리 - 첫번째 로그는 이전 로그가 없기 때문에 NULL 값이됨 + 이전 로그와 600초 이상인 경우 -> 세션의 시작이라고 볼 수 있음
+# 이후 id ( 이벤트가 발생한 순서 )를 기준으로 정렬하고 user_pseudo_id 별로 session 을 누적합
 SELECT user_pseudo_id
       , event_timestamp_kst
       , event_name
