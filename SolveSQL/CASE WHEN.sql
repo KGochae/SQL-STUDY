@@ -26,20 +26,20 @@ GROUP BY order_id,cancel),
 # 너무 복잡하게 생각한걸까요.. 더좋은 쿼리방법이 있는지 생각해 봐야겠습니다 ㅠㅠ
 
 AGGREGATED AS (
-    SELECT 
-        DATE_FORMAT(O.order_date, '%Y-%m') AS order_month,
-        CASE WHEN P.cancel = 0 THEN SUM(P.sum_price) ELSE 0 END AS ordered_amount,
-        CASE WHEN P.cancel = 1 THEN SUM(P.sum_price) ELSE 0 END AS canceled_amount
+    SELECT DATE_FORMAT(O.order_date, '%Y-%m') AS order_month
+        , CASE WHEN P.cancel = 0 THEN SUM(P.sum_price) ELSE 0 END AS ordered_amount
+        , CASE WHEN P.cancel = 1 THEN SUM(P.sum_price) ELSE 0 END AS canceled_amount
     FROM orders O
     LEFT JOIN PRICE P ON O.order_id = P.order_id
     GROUP BY DATE_FORMAT(O.order_date, '%Y-%m'), P.cancel
 )
 
-SELECT 
-    order_month,
-    SUM(ordered_amount) AS ordered_amount,
-    SUM(canceled_amount) AS canceled_amount,
-    SUM(ordered_amount) + SUM(canceled_amount) AS total_amount
+
+
+SELECT order_month
+    , SUM(ordered_amount) AS ordered_amount
+    , SUM(canceled_amount) AS canceled_amount
+    , SUM(ordered_amount) + SUM(canceled_amount) AS total_amount
 FROM AGGREGATED
 GROUP BY order_month
 ORDER BY order_month
