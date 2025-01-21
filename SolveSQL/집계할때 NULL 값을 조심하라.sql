@@ -55,6 +55,9 @@ SELECT A.rent_station_id as station_id
 FROM rent_19 A
 LEFT JOIN return_19 B ON A.rent_station_id = B.return_station_id)
 
+
+  
+# 최종 테이블  
 SELECT A.station_id 
     ,S.name
     ,S.local
